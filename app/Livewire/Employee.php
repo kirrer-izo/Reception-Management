@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Employee as ModelsEmployee;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -16,8 +17,16 @@ class Employee extends Component
     #[Url]
     public $search;
 
+    public function mount()
+    {
+        if(Gate::denies('admin')){
+            return abort(403);
+        }
+    }
+
     public function delete(ModelsEmployee $employee)
     {
+        $this->authorize('delete', ModelsEmployee::class);
         $employee = ModelsEmployee::findOrFail($employee->id);
         if($employee){
             $employee->delete();

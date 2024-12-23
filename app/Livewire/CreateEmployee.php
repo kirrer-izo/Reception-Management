@@ -17,6 +17,11 @@ class CreateEmployee extends Component
         'email' => 'required|email'
     ];
 
+    public function mount()
+    {
+        $this->authorize('create', Employee::class);
+    }
+
     public function save()
     {
         $this->validate();
@@ -31,6 +36,7 @@ class CreateEmployee extends Component
     }
     public function render()
     {
+        $this->authorize('create',Employee::class);
         return view('livewire.create-employee');
     }
 }

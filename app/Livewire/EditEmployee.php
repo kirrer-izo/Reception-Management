@@ -18,6 +18,7 @@ class EditEmployee extends Component
     ];
     public function mount(Employee $employee)
     {
+        $this->authorize('update',Employee::class);
         $this->employeeID = $employee->id;
         $this->newname = $employee->name;
         $this->newphone_number = $employee->phone_number;

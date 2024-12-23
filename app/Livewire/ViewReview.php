@@ -20,9 +20,7 @@ class ViewReview extends Component
     public function delete(Review $review)
     {
         $review = Review::findOrFail($review->id);
-        if(Gate::denies('delete-review',$review)){
-            return abort(403);
-        };
+        $this->authorize('delete',$review);
         if($review){
             $review->delete();
             return redirect()->route('review')->with('delete','Deleted Successfully');

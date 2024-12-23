@@ -22,10 +22,8 @@ class EditReview extends Component
 
     public function mount(Review $review)
     {
-        if(Gate::denies('update-review', $review)){
-            return abort(403);
-        }
         $this->reviewID = $review->id;
+        $this->authorize('update',$review);
         $this->newrating = $review->rating;
         $this->newreview = $review->review;
     }
