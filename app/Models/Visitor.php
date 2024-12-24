@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -17,5 +18,10 @@ class Visitor extends Model
         'check_in_time',
         'check_out_time'
     ];
+
+    public function scopeLatestVisitor(Builder $query):void
+    {
+        $query->latest();
+    }
 
 }

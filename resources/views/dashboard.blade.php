@@ -49,7 +49,7 @@
                     </div>
                   </div>
                   <div>
-                    <h2 class="text-2xl font-bold mb-4">Visitors today</h2>
+                    <h2 class="text-2xl font-bold mb-4">Latest Visitor</h2>
                     
                     @if ($visitor)
                     <div class="space-y-4">

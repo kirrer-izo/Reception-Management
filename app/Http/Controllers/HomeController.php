@@ -20,11 +20,11 @@ class HomeController extends Controller
             $reviews = Review::all()->count();
     
             if($reviews>0){
-                $reviews5star = Review::where('rating',5)->count();
-                $reviews4star = Review::where('rating',4)->count();
-                $reviews3star = Review::where('rating',3)->count();
-                $reviews2star = Review::where('rating',2)->count();
-                $reviews1star = Review::where('rating',1)->count();
+                $reviews5star = Review::rating(5)->count();
+                $reviews4star = Review::rating(4)->count();
+                $reviews3star = Review::rating(3)->count();
+                $reviews2star = Review::rating(2)->count();
+                $reviews1star = Review::rating(1)->count();
     
                 $this->per5star = ($reviews5star/$reviews) * 100;
                 $this->per4star = ($reviews4star/$reviews) * 100;
@@ -44,10 +44,10 @@ class HomeController extends Controller
         }else{
 
         $call = CallLog::latest()->first();
-        $callstoday =CallLog::whereDate('created_at', Carbon::today())->get();
-        $callsweek = CallLog::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        $visitor = Visitor::latest()->first();
-        $visitors = Visitor::latest()->take(3)->get();
+        $callstoday =CallLog::callsToday()->get();
+        $callsweek = CallLog::callsThisWeek()->get();
+        $visitor = Visitor::latestVisitor()->first();
+        $visitors = Visitor::latestVisitor()->take(3)->get();
         $reviews = Review::all()->count();
 
 
