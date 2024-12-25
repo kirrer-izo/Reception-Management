@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Employee as ModelsEmployee;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
@@ -15,7 +16,7 @@ class Employee extends Component
     use WithPagination;
 
     #[Url]
-    public $search;
+    public $search = "";
 
     public function mount()
     {
@@ -35,10 +36,14 @@ class Employee extends Component
 
     public function render()
     {
-        $employees = ModelsEmployee::latest()
-        ->where('name','like',"%$this->search%")
-        ->orWhere('phone_number','like',"%$this->search%")
-        ->paginate(5);
+        $cachekey = 'employees_'. $this->search;
+        $employees = Cache::tags(['employee'])->remember($cachekey,now()->addMonth(),function(){
+            return  ModelsEmployee::latest()
+            ->where('name','like',"%$this->search%")
+            ->orWhere('phone_number','like',"%$this->search%")
+            ->paginate(5);
+        });
+        
         return view('livewire.employee',compact('employees'));
     }
 }

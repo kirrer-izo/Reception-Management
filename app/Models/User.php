@@ -80,5 +80,8 @@ class User extends Authenticatable
         static::deleting(function(User $user){
             $user->review()->delete();
         });
+        static::restoring(function(User $user){
+            $user->review()->restore();
+        });
     }
 }
