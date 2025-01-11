@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Review;
+use App\Models\Visitor;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
@@ -20,23 +21,38 @@ class CreateReview extends Component
     #[Rule('nullable')]
     public $review;
 
+    public $visitor_id;
+
     public function save(Review $review)
     {
         $this->validate();
 
-        $user_id = Auth::user()->id;
+        $user = Auth::user();
 
-        $existingReview = Review::where('user_id',$user_id)->first();
+        $reviewable = null;
+
+        if($this->visitor_id){
+            $reviewable = Visitor::find($this->visitor_id);
+        }else{
+            $reviewable = $user;
+        }
+
+        $existingReview = Review::where('reviewable_type',get_class($reviewable))
+        ->where('reviewable_id',$reviewable->id)
+        ->first();
 
         if($existingReview){
             return redirect()->route('editreview',['review' => $existingReview->id])->with('success','Edit your review');
         }
 
-        Review::create([
+        $review = new Review([
             'rating' => $this->rating,
-            'review' => $this->review,
-            'user_id' => $user_id
+            'review' => $this->review
         ]);
+
+       $review->reviewable_type = get_class($reviewable);
+       $review->reviewable_id = $reviewable->id;
+       $review->save();
 
         session()->flash('success','Review Created!');
         $this->reset('rating','review');

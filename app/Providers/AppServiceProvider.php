@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
         //         ?Response::allow()
         //         :Response::deny('You do not own this review');
         // });
+        // Schema::defaultStringLength(191);
         Gate::define('admin',fn(User $user)=> Auth::user()->usertype == 'admin');
+    
     }
 }

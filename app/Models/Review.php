@@ -13,12 +13,13 @@ class Review extends Model
     protected $fillable = [
         'review',
         'rating',
-        'user_id'
+        'reviewable_id',
+        'reviewable_type'
     ];
 
-    public function user(): BelongsTo
+    public function reviewable()
     {
-        return $this->belongsTo(User::class);
+        return $this->morphTo('reviewable');
     }
     public function employee(): BelongsTo
     {

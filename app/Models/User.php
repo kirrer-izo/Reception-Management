@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -68,9 +69,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function review(): HasOne
+    public function review(): MorphOne
     {
-        return $this->hasOne(Review::class);
+        return $this->morphOne(Review::class,'reviewable');
     }
 
     public static function boot()

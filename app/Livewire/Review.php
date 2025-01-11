@@ -16,14 +16,15 @@ class Review extends Component
 
     public function render()
     {
-        $reviews = ModelsReview::with('user')
-        ->whereHas('user', function($query){
+        $reviews = ModelsReview::with('reviewable')
+        ->whereHas('reviewable', function($query){
             $query->where('name','like',"%$this->search%");
         })->paginate(5);
         
         if($reviews){
             foreach($reviews as $review){
-                $this->reviewer = $review->user;
+                $reviewable = $review->reviewable;
+                $this->reviewer = $reviewable->name;
             }
         }
         

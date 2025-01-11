@@ -12,6 +12,17 @@
         <div class="flex">
             <input wire:model.live.debounce.300ms="search" class="rounded-md px-2 mt-3 text-cyan-950" type="text" name="" id="" placeholder="search ...">
         </div>
+        <div class="flex">
+            <button wire:navigate href="{{route('createreview')}}" class="relative mt-3 px-20 py-2 text-sm text-white font-semibold
+            bg-green-400 overflow-hidden transition-all duration-300 ease-in-out
+            hover:bg-green-600 rounded-full z-10
+            before:absolute before:inset-0 before:bg-green-600 before:origin-left
+            before:scale-x-0 before:transition-transform before:duration-300
+            before:ease-in-out hover:before:scale-x-100 before:z-0">
+    <span class="relative z-20">Leave a Review</span>
+</button>
+
+        </div>
 
         <!-- Tags -->
         {{-- <div class="flex flex-wrap gap-2 w-full py-2">
@@ -28,8 +39,8 @@
                 <!-- Profile and Rating -->
                 <div class="flex justify justify-between">
                     <div class="flex gap-2">
-                        <div class="w-7 h-7 text-center rounded-full bg-red-500">{{$reviewer->name[0]}}</div>
-                        <span>{{$reviewer->name}}</span>
+                        <div class="w-7 h-7 text-center rounded-full bg-red-500">{{$reviewer[0]}}</div>
+                        <span>{{$reviewer}}</span>
                     </div>
                     <div class="flex p-1 gap-1 text-orange-300">
                         @if($review->rating == 1)
