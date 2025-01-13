@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Review extends Model
@@ -21,9 +22,14 @@ class Review extends Model
     {
         return $this->morphTo('reviewable');
     }
-    public function employee(): BelongsTo
+    // public function employee(): BelongsTo
+    // {
+    //     return $this->belongsTo(Employee::class);
+    // }
+
+    public function comment(): MorphMany
     {
-        return $this->belongsTo(Employee::class);
+        return $this->morphMany(Comment::class,'commentable');
     }
 
     public function scopeRating(Builder $query,int $rating):void

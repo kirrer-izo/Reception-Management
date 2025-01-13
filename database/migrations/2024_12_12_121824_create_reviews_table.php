@@ -13,11 +13,11 @@ return new class extends Migration
     {
             Schema::create('reviews', function (Blueprint $table) {
                 $table->id();
+                
                 $table->unsignedBigInteger('rating');
                 $table->text('review')->nullable();
-                $table->unsignedBigInteger('user_id');
-    
-                $table->foreign('user_id')->references('id')->on('users');
+                $table->morphs('reviewable');
+                $table->softDeletes();
                 
                 $table->timestamps();
             });

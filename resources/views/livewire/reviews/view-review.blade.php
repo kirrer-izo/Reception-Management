@@ -1,4 +1,5 @@
 <div class="flex justify-center items-center min-h-screen">
+
     <div class="max-w-[720px] mx-auto">
         <div class="mb-3">
             <button wire:navigate href={{route('review')}} class="text-base  rounded-r-none  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
@@ -40,25 +41,26 @@
          @endcan
           
         </div>
+
         <div class="block mb-4 mx-auto border-b border-slate-300 pb-2 max-w-[360px]">
             @if (Auth::user()->usertype == 'admin')
             <a  
                 href="{{route('users')}} 
                 class="block w-full px-4 py-2 text-center text-slate-700 transition-all"
             >
-                {{$review->user->name}} <b>Review</b>.
+                {{$review->reviewable->name}} <b>Review</b>.
             </a> 
             @else
             <a  
             class="block w-full px-4 py-2 text-center text-slate-700 transition-all hover:cursor-pointer"
         >
-            {{$review->user->name}} <b>Review</b>.
+            {{$review->reviewable->name}} <b>Review</b>.
             </a> 
             @endif
         </div>
 
         <!-- Centering wrapper -->
-        <div class="relative flex flex-col mt-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96">
+        <div class="relative flex flex-col mt-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96 mb-3">
             <div class="p-4">
                 <h5 class="mb-2 text-slate-800 text-xl font-semibold">
                     Review Text
@@ -69,5 +71,12 @@
                 <p class="text-sm mt-3 flex items-baseline">{{$review->updated_at}}</p>
             </div>
         </div>
+
+        @livewire('create-comment')
+        @livewire('comment')
+
     </div>
+
+
+    
 </div>

@@ -14,12 +14,12 @@ class ViewReview extends Component
 
     public function mount(Review $review)
     {
-        $this->review = Review::with('user')->findOrFail($review->id);
+        $this->review = Review::with('reviewable')->findOrFail($review->id);
     }
 
     public function delete(Review $review)
     {
-        $review = Review::findOrFail($review->id);
+        $review = Review::with('reviewable')->findOrFail($review->id);
         $this->authorize('delete',$review);
         if($review){
             $review->delete();
@@ -29,6 +29,9 @@ class ViewReview extends Component
     public function render(Review $review)
     {
         
-        return view('livewire.reviews.view-review',['review' => $this->review]);
+        return view('livewire.reviews.view-review',
+        [
+            'review' => $this->review
+        ]);
     }
 }

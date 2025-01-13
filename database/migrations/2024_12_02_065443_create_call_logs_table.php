@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('call_logs', function (Blueprint $table) {
             $table->id();
+
             $table->date('date');
             $table->time('time');
             $table->string('name');
@@ -22,6 +23,8 @@ return new class extends Migration
             $table->enum('call_status',['completed','missed','voicemail']);
             $table->string('employee');
             $table->string('notes')->nullable();
+            $table->softDeletes();
+            
             $table->timestamps();
         });
     }

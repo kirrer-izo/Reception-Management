@@ -14,6 +14,7 @@ return new class extends Migration
         if(!Schema::hasTable('visitors')){
             Schema::create('visitors', function (Blueprint $table) {
                 $table->id();
+                
                 $table->date('date');
                 $table->string('name');
                 $table->string('phone_number');
@@ -22,6 +23,7 @@ return new class extends Migration
                 $table->string('host_name');
                 $table->time('check_in_time');
                 $table->time('check_out_time')->nullable();
+                $table->softDeletes();
     
                 $table->timestamps();
             });
