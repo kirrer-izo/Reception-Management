@@ -60,7 +60,7 @@
         </div>
 
         <!-- Centering wrapper -->
-        <div class="relative flex flex-col mt-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96 mb-3">
+        <div class="flex flex-col mt-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96 mb-3">
             <div class="p-4">
                 <h5 class="mb-2 text-slate-800 text-xl font-semibold">
                     Review Text
@@ -74,6 +74,7 @@
 
         @livewire('create-comment')
         @livewire('comment')
+        
 
     </div>
 
