@@ -37,7 +37,6 @@ class CommentPolicy
      * Determine whether the user can update the model.
      */
 
-
     public function update(User $user, Comment $comment): bool
     {
         if($comment->commentable_type == User::class){
@@ -45,7 +44,6 @@ class CommentPolicy
             return Auth::user()->id == $commentable->id;
         }
         return false;
-
     }
 
     /**
