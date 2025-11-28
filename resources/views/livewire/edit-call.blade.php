@@ -1,144 +1,100 @@
-<div class="">
-  <div class="mb-3">
-    <button wire:navigate href={{route('calllog')}} class="text-base  rounded-r-none  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-    hover:bg-gray-200  
-    bg-gray-100 
-    text-gray-700 
-    border duration-200 ease-in-out 
-    border-gray-600 transition">
-            <div class="flex leading-5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-5 h-5">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-                Back</div>
-        </button>
-  </div>
-
-  <div class="flex justify-center">
-    <form action="" wire:submit.prevent="edit" class="w-full max-w-lg">
-      @if (session('success'))
-      <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md mt-3 mb-3" role="alert">
-              <p class="text-sm">{{session('success')}}</p>
-        </div>
-      @endif
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="newdate">
-            Date
-          </label>
-          <input wire:model="newdate" class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="" type="newdate">
-          @error('newdate')
-          <span class="text-sm text-red-700">{{$message}}</span>
-          @enderror
-      </div>
-        <div class="w-full md:w-1/2 px-3">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="newtime">
-            Time
-          </label>
-          <input wire:model="newtime" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="newtime" >
-          @error('newtime')
-          <span class="text-sm text-red-700">{{$message}}</span>
-          @enderror
-      </div>
-      </div>
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full px-3">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="newname">
-            Name
-          </label>
-          <input wire:model="newname" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" placeholder="Enter Name">
-          @error('newname')
-          <span class="text-sm text-red-700">{{$message}}</span>
-          @enderror
-      </div>
-      </div>
-      <div class="flex flex-wrap -mx-3 mb-2">
-        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="newphone_number">
-            Phone Number
-          </label>
-          <input wire:model="newphone_number" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text">
-          @error('newphone_number')
-          <span class="text-sm text-red-700">{{$message}}</span>
-          @enderror
-      </div>
-        
-        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="">
-            Call Duration
-          </label>
-          <input wire:model="newcall_duration" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" placeholder="in mins">
-          @error('newcall_duration')
-          <span class="text-sm text-red-700">{{$message}}</span>
-          @enderror
-      </div>
-        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="newcall_type">
-              Call Type
-            </label>
-            <div class="relative">
-              <select wire:model="newcall_type" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="">
-                <option>Select...</option>
-                <option value="inbound">inbound</option>
-                <option value="outbound">outbound</option>
-              </select>
-              @error('newcall_type')
-              <span class="text-sm text-red-700">{{$message}}</span>
-              @enderror
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-              </div>
+<div class="py-12 flex justify-center items-center min-h-[80vh]">
+    <div class="max-w-2xl w-full mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-blue-700 p-8 text-white text-center">
+                <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
+                    <ion-icon name="create" class="text-3xl"></ion-icon>
+                </div>
+                <h2 class="text-3xl font-bold">Edit Call Log</h2>
+                <p class="text-blue-100 mt-2">Update the details of the call.</p>
             </div>
-          </div>
-      </div>
-      <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="newcall_status">
-              Call Status
-            </label>
-            <div class="relative">
-              <select wire:model="newcall_status" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="">
-                <option>Select...</option>
-                <option value="completed">completed</option>
-                <option value="missed">missed</option>
-                <option value="voicemail">voicemail</option>
-              </select>
-              @error('newcall_status')
-              <span class="text-sm text-red-700">{{$message}}</span>
-              @enderror
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-              </div>
-            </div>
-          </div>
-          <div class="w-full md:w-1/2 px-3">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="newemployee">
-              Employee
-            </label>
-            <input wire:model="newemployee" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="" type="text" placeholder="Your Name...">
-            @error('newemployee')
-            <span class="text-sm text-red-700">{{$message}}</span>
-            @enderror
-          </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full px-3">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="newnotes">
-              Notes
-            </label>
-            <textarea wire:model="newnotes" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="" id="" cols="30" rows="10"></textarea>
-          </div>
-          @error('newnotes')
-              <span class="text-sm text-red-700">{{$message}}</span>
-          @enderror
-        </div>
-        <div wire:loading.remove>
-          <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-              Update
-            </button>
-        </div>
 
-    </form>
-  </div>
-    
+            <!-- Form -->
+            <div class="p-8">
+                <form wire:submit.prevent="updateCall" class="space-y-6">
+                    <!-- Name -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Caller Name</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <ion-icon name="person-outline" class="text-gray-400"></ion-icon>
+                            </div>
+                            <input wire:model="name" type="text" id="name" class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors" placeholder="John Doe">
+                        </div>
+                        @error('name') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="phone_number" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <ion-icon name="call-outline" class="text-gray-400"></ion-icon>
+                            </div>
+                            <input wire:model="phone_number" type="text" id="phone_number" class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors" placeholder="+1 234 567 890">
+                        </div>
+                        @error('phone_number') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- Call Type -->
+                    <div>
+                        <label for="call_type" class="block text-sm font-medium text-gray-700 mb-1">Call Type</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <ion-icon name="options-outline" class="text-gray-400"></ion-icon>
+                            </div>
+                            <select wire:model="call_type" id="call_type" class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                <option value="">Select Type</option>
+                                <option value="Inquiry">Inquiry</option>
+                                <option value="Complaint">Complaint</option>
+                                <option value="Support">Support</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        @error('call_type') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- Call Status -->
+                    <div>
+                        <label for="call_status" class="block text-sm font-medium text-gray-700 mb-1">Call Status</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <ion-icon name="flag-outline" class="text-gray-400"></ion-icon>
+                            </div>
+                            <select wire:model="call_status" id="call_status" class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                <option value="">Select Status</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Missed">Missed</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                        </div>
+                        @error('call_status') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- Employee (Optional) -->
+                    <div>
+                        <label for="employee" class="block text-sm font-medium text-gray-700 mb-1">Assigned Employee (Optional)</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <ion-icon name="briefcase-outline" class="text-gray-400"></ion-icon>
+                            </div>
+                            <input wire:model="employee" type="text" id="employee" class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors" placeholder="Jane Smith">
+                        </div>
+                        @error('employee') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex items-center justify-between pt-4">
+                        <a href="{{ route('calls.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                            &larr; Back to Log
+                        </a>
+                        <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all transform hover:-translate-y-0.5">
+                            <ion-icon name="save-outline" class="mr-2"></ion-icon> Update Call
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

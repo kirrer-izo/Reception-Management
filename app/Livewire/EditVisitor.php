@@ -7,7 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('layouts.app')]
-class EditVistor extends Component
+class EditVisitor extends Component
 {
     public $visitorID;
 
@@ -54,7 +54,7 @@ class EditVistor extends Component
 
         $visitor->save();
 
-        return redirect()->route('vistors');
+        return redirect()->route('visitors');
         
     }
     public function render()

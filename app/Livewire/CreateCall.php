@@ -5,12 +5,10 @@ namespace App\Livewire;
 use App\Models\CallLog;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Livewire\WithPagination;
-
 #[Layout('layouts.app')]
 class CreateCall extends Component
 {
-    use WithPagination;
+    // use WithPagination; // Removed unused trait
 
     public $date,$time,$name,$phone_number,$call_duration,$call_type,$call_status,$employee,$notes;
 
@@ -38,16 +36,18 @@ class CreateCall extends Component
             'call_duration' => $this->call_duration,
             'call_type' => $this->call_type,
             'call_status' => $this->call_status,
-            'employee' => $this->employee,
+            'employee_id' => $this->employee,
             'notes' => $this->notes
         ]);
 
-        $this->reset('date','name','phone_number','call_duration','call_type','call_status','employee','notes');
+        $this->reset();
         session()->flash('success','Call created successfully');
         
     }
     public function render()
     {
-        return view('livewire.create-call');
+        return view('livewire.create-call', [
+            'employees' => \App\Models\Employee::all()
+        ]);
     }
 }

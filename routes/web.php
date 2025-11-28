@@ -10,7 +10,7 @@ use App\Livewire\CreateVisitor;
 use App\Livewire\EditCall;
 use App\Livewire\EditEmployee;
 use App\Livewire\EditReview;
-use App\Livewire\EditVistor;
+use App\Livewire\EditVisitor;
 use App\Livewire\Employee;
 use App\Livewire\Review;
 use App\Livewire\User;
@@ -24,7 +24,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home',[HomeController::class,'index'])->name('home');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/home',[HomeController::class,'index'])->name('home');
+});
 Route::get('/users',User::class)->name('users')->middleware([
     'auth:sanctum',config('jetstream.auth_session'),'verified'
 ]);
@@ -34,10 +40,10 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->prefix('/calllog')->group(function () {
-    Route::get('/',Call::class)->name('calllog');
-    Route::get('/create',CreateCall::class)->name('createcall');
-    Route::get('/{call}/edit',EditCall::class)->name('editcall');
-    Route::get('/{call}',ViewCall::class)->name('viewcall');  
+    Route::get('/',Call::class)->name('calls.index');
+    Route::get('/create',CreateCall::class)->name('calls.create');
+    Route::get('/{call}/edit',EditCall::class)->name('calls.edit');
+    Route::get('/{call}',ViewCall::class)->name('calls.show');  
 });
 
 Route::middleware([
@@ -47,7 +53,7 @@ Route::middleware([
 ])->prefix('/visitor')->group(function(){
     Route::get('',Visitor::class)->name('visitors');
     Route::get('/create',CreateVisitor::class)->name('createvisitor');
-    Route::get('/{visitor}/edit',EditVistor::class)->name('editvisitor');
+    Route::get('/{visitor}/edit',EditVisitor::class)->name('editvisitor');
     Route::get('/{visitor}',ViewVisitor::class)->name('viewvisitor');
 
 });

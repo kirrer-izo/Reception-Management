@@ -17,9 +17,14 @@ class CallLog extends Model
         'call_duration',
         'call_type',
         'call_status',
-        'employee',
+        'employee_id',
         'notes'
     ];
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 
     public function scopeCallsThisWeek(Builder $query):void
     {

@@ -1,67 +1,168 @@
-        <ul>
-            <li wire:navigate href="{{route('home')}}"  class="relative flex items-center justify-center h-12 w-auto mt-2 mb-2 mx-auto bg-gray-700 hover:bg-slate-50 rounded-3xl hover:rounded-xl hover:text-black transition-all duration-200 ease-linear cursor-pointer">
-                    <svg  class="h-12 w-auto mt-2 mb-2 py-1 mx-auto"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 12h4l3-9 4 15 3-6h4" />
-                    </svg>
-            </li>
-            <li wire:navigate href="{{route('calllog')}}" class="relative flex items-center justify-center h-12 w-auto mt-2 mb-2 mx-auto bg-gray-700 hover:bg-slate-50 rounded-3xl hover:rounded-xl hover:text-black transition-all duration-200 ease-linear cursor-pointer">
-                <svg class="h-12 w-auto mt-2 mb-2 py-1 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="5" y="2" width="14" height="20" rx="2" />
-                    <path d="M12 18h.01" />
-                    <line x1="7" y1="6" x2="17" y2="6" />
-                    <line x1="7" y1="10" x2="17" y2="10" />
-                  </svg>
-            </li>
-            <li wire:navigate href="{{route('visitors')}}" class="relative flex items-center justify-center h-12 w-auto mt-2 mb-2 mx-auto bg-gray-700 hover:bg-slate-50 rounded-3xl hover:rounded-xl hover:text-black transition-all duration-200 ease-linear cursor-pointer">
-                <svg class="h-12 w-auto mt-2 mb-2 py-1 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                    <circle cx="9" cy="7" r="4"/>
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                  </svg>
-            </li>
-            @if (Auth::user()->usertype == 'admin')
-
-            <li wire:navigate href="{{route('employees')}}"  class="relative flex items-center justify-center h-12 w-auto mt-2 mb-2 mx-auto bg-gray-700 hover:bg-slate-50 rounded-3xl hover:rounded-xl hover:text-black transition-all duration-200 ease-linear cursor-pointer">
-                <svg class="h-12 w-auto mt-2 mb-2 py-1 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16 11V7C16 5.35 14.65 4 13 4C11.35 4 10 5.35 10 7V11C8.1 11 7 12.1 7 14V20C7 21.1 8.1 22 9 22H17C17.9 22 19 21.1 19 20V14C19 12.1 17.9 11 16 11ZM10 7C10 5.9 10.9 5 12 5C13.1 5 14 5.9 14 7V11H10V7Z" fill="#FFFFFF"/>
-                </svg>
-            </li> 
-            <li wire:navigate href="{{route('users')}}" class="relative flex items-center justify-center h-12 w-auto mt-2 mb-2 mx-auto bg-gray-700 hover:bg-slate-50 rounded-3xl hover:rounded-xl hover:text-black transition-all duration-200 ease-linear cursor-pointer">
-                <svg class="h-12 w-auto mt-2 mb-2 py-1 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="#FFFFFF"/>
-                  </svg>
-            </li>
-            @endif
-            <li class="relative flex items-center justify-center h-12 w-auto mt-2 mb-2 mx-auto bg-gray-700 hover:bg-slate-50 rounded-3xl hover:rounded-xl hover:text-black transition-all duration-200 ease-linear cursor-pointer">
-                <svg class="h-12 w-auto mt-2 mb-2 py-1 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <line x1="12" y1="16" x2="12" y2="12"/>
-                    <line x1="12" y1="8" x2="12.01" y2="8"/>
-                  </svg>
-            </li>
-            <li class="relative flex items-center justify-center h-12 w-auto mt-2 mb-2 mx-auto bg-gray-700 hover:bg-slate-50 rounded-3xl hover:rounded-xl hover:text-black transition-all duration-200 ease-linear cursor-pointer">
-                <svg class="h-12 w-auto mt-2 mb-2 py-1 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-                    <path d="m15 9 6 6-6 6"/>
-                  </svg>
-            </li>
-            <li>
-                <div>
-                    <div class="flex justify-center">
-                        <form action="{{route('logout')}}" method="post" x-data>
-                         @csrf
-                         <input type="submit" value="logout">
-                        </form>
-                    </div>
-                    <div class="flex justify-center">    
-                        <form action="{{route('profile.show')}}" method="get" x-data>
-                         @csrf
-                         <input type="submit" value="profile">
-                        </form>
-                    </div>
-
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+    <!-- Primary Navigation Menu -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <!-- Logo -->
+                <div class="shrink-0 flex items-center">
+                    <a href="{{ route('home') }}">
+                        <x-application-mark class="block h-9 w-auto" />
+                    </a>
                 </div>
-            </li>
-        </ul>
-    
+
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('calls.index') }}" :active="request()->routeIs('calls.*')">
+                        {{ __('Calls') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('visitors') }}" :active="request()->routeIs('visitors')">
+                        {{ __('Visitors') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('review') }}" :active="request()->routeIs('review')">
+                        {{ __('Reviews') }}
+                    </x-nav-link>
+                    @if (Auth::user()->usertype == 'admin')
+                    <x-nav-link href="{{ route('employees') }}" :active="request()->routeIs('employees')">
+                        {{ __('Employees') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                        {{ __('Users') }}
+                    </x-nav-link>
+                    @endif
+                </div>
+            </div>
+
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <!-- Settings Dropdown -->
+                <div class="ms-3 relative">
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                </button>
+                            @else
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                                        {{ Auth::user()->name }}
+
+                                        <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            @endif
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Manage Account') }}
+                            </div>
+
+                            <x-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+
+                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                <x-dropdown-link href="{{ route('api-tokens.index') }}">
+                                    {{ __('API Tokens') }}
+                                </x-dropdown-link>
+                            @endif
+
+                            <div class="border-t border-gray-200"></div>
+
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+
+                                <x-dropdown-link href="{{ route('logout') }}"
+                                         @click.prevent="$root.submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
+                </div>
+            </div>
+
+            <!-- Hamburger -->
+            <div class="-me-2 flex items-center sm:hidden">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Responsive Navigation Menu -->
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('calls.index') }}" :active="request()->routeIs('calls.*')">
+                {{ __('Calls') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('visitors') }}" :active="request()->routeIs('visitors')">
+                {{ __('Visitors') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('review') }}" :active="request()->routeIs('review')">
+                {{ __('Reviews') }}
+            </x-responsive-nav-link>
+            @if (Auth::user()->usertype == 'admin')
+            <x-responsive-nav-link href="{{ route('employees') }}" :active="request()->routeIs('employees')">
+                {{ __('Employees') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                {{ __('Users') }}
+            </x-responsive-nav-link>
+            @endif
+        </div>
+
+        <!-- Responsive Settings Options -->
+        <div class="pt-4 pb-1 border-t border-gray-200">
+            <div class="flex items-center px-4">
+                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                    <div class="shrink-0">
+                        <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                    </div>
+                @endif
+
+                <div class="ms-3">
+                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                </div>
+            </div>
+
+            <div class="mt-3 space-y-1">
+                <!-- Account Management -->
+                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                    <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
+                        {{ __('API Tokens') }}
+                    </x-responsive-nav-link>
+                @endif
+
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}" x-data>
+                    @csrf
+
+                    <x-responsive-nav-link href="{{ route('logout') }}"
+                                   @click.prevent="$root.submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

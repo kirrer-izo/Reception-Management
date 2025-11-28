@@ -1,83 +1,78 @@
-<div class="flex justify-center items-center min-h-screen">
+<div class="py-12 flex justify-center items-center min-h-[80vh]">
+    <div class="max-w-3xl w-full mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-red-500 to-red-600 p-8 text-white flex justify-between items-center">
+                <div>
+                    <h2 class="text-3xl font-bold">Review Details</h2>
+                    <p class="text-red-100 mt-1">Feedback from {{ $review->reviewable->name }}</p>
+                </div>
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <ion-icon name="star" class="text-2xl"></ion-icon>
+                </div>
+            </div>
 
-    <div class="max-w-[720px] mx-auto">
-        <div class="mb-3">
-            <button wire:navigate href={{route('review')}} class="text-base  rounded-r-none  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-            hover:bg-gray-200  
-            bg-gray-100 
-            text-gray-700 
-            border duration-200 ease-in-out 
-            border-gray-600 transition">
-                    <div class="flex leading-5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-5 h-5">
-                            <polyline points="15 18 9 12 15 6"></polyline>
-                        </svg>
-                        Back</div>
-                </button>
-          </div>
+            <!-- Content -->
+            <div class="p-8">
+                <!-- Review Text -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-100 pb-2 mb-4">Review Content</h3>
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-100 relative">
+                        <ion-icon name="quote" class="absolute top-4 left-4 text-gray-200 text-4xl -z-0"></ion-icon>
+                        <p class="text-gray-700 italic relative z-10 text-lg leading-relaxed">"{{ $review->review }}"</p>
+                    </div>
+                </div>
 
-        <div class='flex items-center justify-center'>
-           @can('update',$review)
-           <div class="m-5">
-               <button wire:navigate href="{{route('editreview',['review' => $review->id])}}" class="flex p-2.5 bg-blue-500 rounded-xl hover:rounded-3xl hover:bg-blue-600 transition-all duration-300 text-white">
-                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                       <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                   </svg>
-               </button>
-           </div> 
-           @endcan
-         @can('delete',$review)
-         <div class="m-5">
-             <button wire:confirm="Are you sure you want do delete your review?" wire:click="delete({{$review->id}})" class="flex p-2.5 bg-red-500 rounded-xl hover:rounded-3xl hover:bg-red-600 transition-all duration-300 text-white">
-                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                     <path d="M4 7h16"></path>
-                     <path d="M10 11v6"></path>
-                     <path d="M14 11v6"></path>
-                     <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12"></path>
-                     <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"></path>
-                   </svg>
-             </button>
-         </div>
-         @endcan
-          
-        </div>
+                <!-- Rating & Meta -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Rating</label>
+                        <div class="flex items-center gap-1 text-yellow-400 text-2xl">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <ion-icon name="{{ $i <= $review->rating ? 'star' : 'star-outline' }}"></ion-icon>
+                            @endfor
+                            <span class="text-gray-400 text-sm ml-2 font-medium">({{ $review->rating }}/5)</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Date</label>
+                        <div class="flex items-center gap-2 text-gray-700">
+                            <ion-icon name="calendar-outline" class="text-gray-400"></ion-icon>
+                            {{ $review->created_at->format('F j, Y, g:i a') }}
+                        </div>
+                    </div>
+                </div>
 
-        <div class="block mb-4 mx-auto border-b border-slate-300 pb-2 max-w-[360px]">
-            @if (Auth::user()->usertype == 'admin')
-            <a  
-                href="{{route('users')}} 
-                class="block w-full px-4 py-2 text-center text-slate-700 transition-all"
-            >
-                {{$review->reviewable->name}} <b>Review</b>.
-            </a> 
-            @else
-            <a  
-            class="block w-full px-4 py-2 text-center text-slate-700 transition-all hover:cursor-pointer"
-        >
-            {{$review->reviewable->name}} <b>Review</b>.
-            </a> 
-            @endif
-        </div>
+                <!-- Comments Section -->
+                <div class="border-t border-gray-100 pt-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Comments</h3>
+                    @livewire('create-comment', ['review' => $review])
+                    <div class="mt-6 space-y-4">
+                        @livewire('comment', ['review' => $review])
+                    </div>
+                </div>
 
-        <!-- Centering wrapper -->
-        <div class="flex flex-col mt-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96 mb-3">
-            <div class="p-4">
-                <h5 class="mb-2 text-slate-800 text-xl font-semibold">
-                    Review Text
-                </h5>
-                <p class="text-slate-600 leading-normal font-light mt-3">
-                   {{$review->review}}
-                </p>
-                <p class="text-sm mt-3 flex items-baseline">{{$review->updated_at}}</p>
+                <!-- Actions -->
+                <div class="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center">
+                    <a href="{{ route('review') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-1">
+                        <ion-icon name="arrow-back"></ion-icon> Back to Reviews
+                    </a>
+                    <div class="flex gap-3">
+                        @can('delete', $review)
+                        <button wire:click="delete({{ $review->id }})" 
+                                wire:confirm="Are you sure you want to delete this review?"
+                                class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors font-medium text-sm flex items-center gap-2">
+                            <ion-icon name="trash"></ion-icon> Delete
+                        </button>
+                        @endcan
+                        @can('update', $review)
+                        <a href="{{ route('editreview', $review->id) }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm flex items-center gap-2 shadow-sm">
+                            <ion-icon name="create"></ion-icon> Edit Review
+                        </a>
+                        @endcan
+                    </div>
+                </div>
             </div>
         </div>
-
-        @livewire('create-comment')
-        @livewire('comment')
-        
-
     </div>
-
-
-    
 </div>

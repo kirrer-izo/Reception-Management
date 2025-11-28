@@ -58,7 +58,7 @@ class EditCall extends Component
         $call->save();
 
         session()->flash('success','Updated Successfully');
-        return redirect()->route('calllog');
+        return redirect()->route('calls.index');
     }
     public function render()
     {

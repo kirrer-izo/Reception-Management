@@ -62,14 +62,25 @@ class HomeController extends Controller
             'per2star' => $this->per2star,
             'per3star' => $this->per3star,
             'per4star' => $this->per4star,
-            'per5star' => $this->per5star
+            'per5star' => $this->per5star,
+            // Passing the quote to the view so the user can see it!
+            'quote' => $this->getQuote()
         ]);
         }
-
-        
-
-
-        }
-
     }
 
+    // Helper function to get a cool quote
+    private function getQuote() {
+        // Array of quotes I found online
+        $quotes = [
+            "The only way to do great work is to love what you do. - Steve Jobs",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
+            "Believe you can and you're halfway there. - Theodore Roosevelt",
+            "Code is like humor. When you have to explain it, it’s bad. - Cory House",
+            "First, solve the problem. Then, write the code. - John Johnson"
+        ];
+
+        // Pick a random one!
+        return $quotes[array_rand($quotes)];
+    }
+}

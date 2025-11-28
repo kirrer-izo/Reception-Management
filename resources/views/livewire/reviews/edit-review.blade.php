@@ -1,64 +1,58 @@
-<div>
-    <div class="">
-        <div class="mb-3">
-          <button wire:navigate href={{route('visitors')}} class="text-base  rounded-r-none  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-          hover:bg-gray-200  
-          bg-gray-100 
-          text-gray-700 
-          border duration-200 ease-in-out 
-          border-gray-600 transition">
-                  <div class="flex leading-5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-5 h-5">
-                          <polyline points="15 18 9 12 15 6"></polyline>
-                      </svg>
-                      Back</div>
-              </button>
+<div class="py-12 flex justify-center items-center min-h-[80vh]">
+    <div class="max-w-2xl w-full mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-red-500 to-red-600 p-8 text-white text-center">
+                <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
+                    <ion-icon name="create" class="text-3xl"></ion-icon>
+                </div>
+                <h2 class="text-3xl font-bold">Edit Review</h2>
+                <p class="text-red-100 mt-2">Update your feedback.</p>
+            </div>
+
+            <!-- Form -->
+            <div class="p-8">
+                <form wire:submit.prevent="edit" class="space-y-6">
+                    <!-- Rating -->
+                    <div>
+                        <label for="rating" class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="flex text-yellow-400 text-2xl">
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star-outline"></ion-icon>
+                            </div>
+                            <span class="text-xs text-gray-500">(Current Rating)</span>
+                        </div>
+                        <input wire:model="newrating" type="number" min="1" max="5" id="rating" class="block w-full rounded-lg border-gray-300 shadow-sm focus:ring-red-500 focus:border-red-500 transition-colors" placeholder="Enter new rating (1-5)">
+                        @error('newrating') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- Review -->
+                    <div>
+                        <label for="review" class="block text-sm font-medium text-gray-700 mb-1">Review</label>
+                        <div class="relative">
+                            <textarea wire:model="newreview" id="review" rows="4" class="block w-full rounded-lg border-gray-300 shadow-sm focus:ring-red-500 focus:border-red-500 transition-colors" placeholder="Share your experience..."></textarea>
+                            <div class="absolute top-3 right-3 text-gray-400 pointer-events-none">
+                                <ion-icon name="pencil"></ion-icon>
+                            </div>
+                        </div>
+                        @error('newreview') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex items-center justify-between pt-4">
+                        <a href="{{ route('review') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                            &larr; Back to Reviews
+                        </a>
+                        <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all transform hover:-translate-y-0.5">
+                            <ion-icon name="save-outline" class="mr-2"></ion-icon> Update Review
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="flex justify-center">
-          <form action="" wire:submit.prevent="edit" class="w-full max-w-lg">
-              @if (session('success'))
-              <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md mt-3 mb-3" role="alert">
-                      <p class="text-sm">{{session('success')}}</p>
-                </div>
-              @endif
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="rating">
-                    Rating
-                  </label>
-                  <div class="flex p-1 gap-1 text-orange-300">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-half"></ion-icon>
-                </div>
-                  <input wire:model="newrating" class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="number">
-                  @error('newrating')
-                  <span class="text-sm text-red-700">{{$message}}</span>
-                  @enderror
-              </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
-                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="review">
-                    Review
-                  </label>
-                  <textarea wire:model="newreview" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="" id="" cols="30" rows="10"></textarea>
-                  @error('newreview')
-                  <span class="text-sm text-red-700">{{$message}}</span>
-                  @enderror
-              </div>
-              </div>                
-              </div>
-                <div wire:loading.remove>
-                  <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                      Update
-                    </button>
-                </div>
-        
-            </form>
-        </div>
-      </div>
-      
+    </div>
 </div>

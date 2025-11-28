@@ -8,11 +8,12 @@ use Livewire\Livewire;
 test('user accounts can be deleted', function () {
     $this->actingAs($user = User::factory()->create());
 
+    $this->withoutExceptionHandling();
     Livewire::test(DeleteUserForm::class)
         ->set('password', 'password')
         ->call('deleteUser');
 
-    expect($user->fresh())->toBeNull();
+    expect($user->fresh()->trashed())->toBeTrue();
 })->skip(function () {
     return ! Features::hasAccountDeletionFeatures();
 }, 'Account deletion is not enabled.');

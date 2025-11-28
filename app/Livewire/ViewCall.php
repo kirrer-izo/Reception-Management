@@ -27,7 +27,7 @@ class ViewCall extends Component
 
         session()->flash('success','Deleted Succesfully');
 
-        $this->redirectRoute('calllog');
+        $this->redirectRoute('calls.index');
     }
 
     public function render()

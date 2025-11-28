@@ -22,7 +22,7 @@
                               </div>
                             </div>
                           </div>
-                          <div wire:navigate href="{{route('calllog')}}" class="p-4 bg-yellow-100 rounded-xl text-gray-800 hover:cursor-pointer transition duration-500 hover:shadow-xl hover:bg-opacity-75">
+                          <div wire:navigate href="{{route('calls.index')}}" class="p-4 bg-yellow-100 rounded-xl text-gray-800 hover:cursor-pointer transition duration-500 hover:shadow-xl hover:bg-opacity-75">
                             <div class="font-bold text-2xl leading-none">Ring, ring! </div>
                             <div class="mt-2 text-sm">Time to track those calls like a pro.</div>
                           </div>
@@ -74,6 +74,72 @@
                               </div>
                             </div>
                           </div>
+                      <x-app-layout>
+    <div class="py-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+            
+            <!-- Welcome Banner -->
+            <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div>
+                        <h1 class="text-4xl font-extrabold tracking-tight mb-2">Admin Dashboard 🛡️</h1>
+                        <p class="text-gray-300 text-lg">Overview of system performance and feedback.</p>
+                    </div>
+                    
+                    <!-- Clock -->
+                    <div class="text-right hidden md:block" x-data="{ time: new Date().toLocaleTimeString() }" x-init="setInterval(() => time = new Date().toLocaleTimeString(), 1000)">
+                        <div class="text-5xl font-mono font-bold tracking-tighter" x-text="time"></div>
+                        <div class="text-gray-400 font-medium mt-1">{{ date('l, F j, Y') }}</div>
+                    </div>
+                </div>
+                
+                <!-- Decor -->
+                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-white opacity-5 blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-60 h-60 rounded-full bg-blue-400 opacity-10 blur-2xl"></div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Total Reviews -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
+                    <div class="w-16 h-16 rounded-full bg-yellow-50 flex items-center justify-center text-yellow-500 text-3xl">
+                        <ion-icon name="star"></ion-icon>
+                    </div>
+                    <div>
+                        <div class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Reviews</div>
+                        <div class="text-3xl font-bold text-gray-900">{{ $reviews }}</div>
+                    </div>
+                </div>
+                <!-- Add more admin stats here if available -->
+            </div>
+
+            <!-- Reviews Breakdown -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                    <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                        <ion-icon name="pie-chart" class="text-purple-500"></ion-icon> Feedback Analysis
+                    </h2>
+                </div>
+                <div class="p-8">
+                    <div class="max-w-3xl mx-auto space-y-6">
+                        @foreach([5 => $per5star, 4 => $per4star, 3 => $per3star, 2 => $per2star, 1 => $per1star] as $star => $percent)
+                        <div class="flex items-center gap-4">
+                            <div class="w-20 text-sm font-bold text-gray-700 flex items-center gap-1">
+                                {{ $star }} <ion-icon name="star" class="text-yellow-400"></ion-icon>
+                            </div>
+                            <div class="flex-grow bg-gray-100 rounded-full h-4 overflow-hidden shadow-inner">
+                                <div class="bg-gradient-to-r from-yellow-400 to-orange-500 h-4 rounded-full transition-all duration-1000 ease-out" style="width: {{ $percent }}%"></div>
+                            </div>
+                            <div class="w-16 text-right text-sm font-bold text-gray-600">{{ round($percent) }}%</div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</x-app-layout>
                       </div>
                     </div>
                   </div>

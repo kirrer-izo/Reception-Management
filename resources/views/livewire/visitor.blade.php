@@ -1,77 +1,100 @@
-<div class="flex justify-center flex-col mb-10">
-  <div class="flex justify-between">
-    <div>
-      <input wire:model.live.debounce.300ms="search" class="rounded-md px-2 mt-3" type="text" name="" id="" placeholder="search ...">
-    </div>
-    <div>
-      @if (session('success'))
-      <div class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md mt-3 mb-3" role="alert">
-        <p class="text-sm">{{session('success')}}</p>
-      </div>
-      @endif
-  
-    </div>
-    <div>
-      <button wire:navigate href="{{route('createvisitor')}}" type="submit"
-              class="relative mt-3 px-20 py-2 text-sm text-white font-semibold
-                     bg-green-400 overflow-hidden transition-all duration-300 ease-in-out
-                     hover:bg-green-600 rounded-full z-10
-                     before:absolute before:inset-0 before:bg-green-600 before:origin-left
-                     before:scale-x-0 before:transition-transform before:duration-300
-                     before:ease-in-out hover:before:scale-x-100 before:z-0"
-          >
-              <span class="relative z-10">Create</span>
-          </button>
-    </div>
-    </div>
-  <div>
-  <table class="table-auto">
-    <thead>
-      <tr>
-        <th class="px-3 py-3 mt-3">Date</th>
-        <th class="px-3 py-3 mt-3">Name</th>
-        <th class="px-3 py-3 mt-3">Phone Number</th>
-        <th class="px-3 py-3 mt-3">Email</th>
-        <th class="px-3 py-3 mt-3">Company</th>
-        <th class="px-3 py-3 mt-3">Host Name</th>
-        <th class="mt-3">Check Out</th>
-        <th class="px-3 py-3 mt-3">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-        @foreach ($visitors as $visitor )
-        <tr>
-            <td class="border px-3 py-3 mt-3">{{$visitor->date}}</td>
-            <td class="border px-3 py-3 mt-3">{{$visitor->name}}</td>
-            <td class="border px-3 py-3 mt-3">{{$visitor->phone_number}}</td>
-            <td class="border px-3 py-3 mt-3">{{$visitor->email}}</td>
-            <td class="border px-3 py-3 mt-3">{{$visitor->company}}</td>
-            <td class="border px-3 py-3 mt-3">{{$visitor->host_name}}</td>
-            <td class="border px-3 py-3 mt-3">
-              @if ($visitor->check_out_time==null)
-              <input wire:click.prevent="toggle({{$visitor->id}})" type="checkbox" name="" id="" value="">
-              @else
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="25" height="25">
-                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L6 13L7.41 11.59L10 14.17L16.59 7.58L18 9L10 17Z" fill="#4CAF50"/>
-              </svg>
-              <input wire:click.prevent="sendsms" wire:loading.remove type="checkbox" name="" id="" value=""> Sms Host
-              @endif
-              
-            </td>
-            <td class="border px-3 py-3 mt-3">
-                <div class="flex justify-evenly space-x-2">
-                    <button wire:navigate href="{{route('viewvisitor',['visitor' => $visitor->id])}}"  class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded-full text-sm">View</button>
-                    <button wire:navigate href="{{route('editvisitor',['visitor' => $visitor->id])}}"   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-full text-sm">Edit</button>
-                    <button wire:click="delete({{$visitor->id}})" wire:confirm="Are you sure you want to delete this?" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-full text-sm">Delete</button>
+<div class="py-12">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        
+        @if (session('success'))
+        <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-r shadow-sm flex items-center justify-between" role="alert">
+            <div class="flex items-center gap-2">
+                <ion-icon name="checkmark-circle" class="text-green-500 text-xl"></ion-icon>
+                <p class="text-green-700 font-medium">{{ session('success') }}</p>
+            </div>
+            <button onclick="this.parentElement.remove()" class="text-green-500 hover:text-green-700">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </div>
+        @endif
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <!-- Header with Search and Actions -->
+            <div class="p-6 border-b border-gray-100 bg-gray-50/50 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex-1 w-full md:w-auto">
+                    <h2 class="text-2xl font-bold text-gray-800">Visitor Log</h2>
+                    <p class="text-sm text-gray-500">Track and manage visitor entries.</p>
                 </div>
-            </td>
-          </tr>    
-        @endforeach
-    </tbody>
-  </table>
-  </div>
-  <div class="mt-3">
-    {{$visitors->links()}}
-  </div>
-    
+                
+                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto items-center">
+                    <div class="relative w-full sm:w-64">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <ion-icon name="search-outline" class="text-gray-400"></ion-icon>
+                        </div>
+                        <input wire:model.live.debounce.300ms="search" type="text" class="pl-10 block w-full rounded-lg border-gray-300 bg-white text-sm focus:border-green-500 focus:ring-green-500 shadow-sm" placeholder="Search visitors...">
+                    </div>
+                    
+                    <a href="{{ route('createvisitor') }}" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium shadow-sm hover:shadow-md whitespace-nowrap">
+                        <ion-icon name="person-add-outline" class="text-xl"></ion-icon> New Visitor
+                    </a>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500 font-semibold">
+                            <th class="p-4 pl-6">Visitor Name</th>
+                            <th class="p-4">Phone Number</th>
+                            <th class="p-4">Email</th>
+                            <th class="p-4">Host</th>
+                            <th class="p-4 pr-6 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50">
+                        @forelse ($visitors as $visitor)
+                        <tr class="hover:bg-gray-50/50 transition-colors group">
+                            <td class="p-4 pl-6">
+                                <div class="font-medium text-gray-900">{{ $visitor->name }}</div>
+                            </td>
+                            <td class="p-4 text-gray-600">{{ $visitor->phone_number }}</td>
+                            <td class="p-4 text-gray-600">{{ $visitor->email }}</td>
+                            <td class="p-4">
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-50 text-purple-700">
+                                    <ion-icon name="person-outline"></ion-icon> {{ $visitor->host_name }}
+                                </span>
+                            </td>
+                            <td class="p-4 pr-6 text-right">
+                                <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <a href="{{ route('viewvisitor', $visitor->id) }}" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="View">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </a>
+                                    <a href="{{ route('editvisitor', $visitor->id) }}" class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors" title="Edit">
+                                        <ion-icon name="create-outline"></ion-icon>
+                                    </a>
+                                    <button wire:click="delete({{ $visitor->id }})" 
+                                            wire:confirm="Are you sure you want to delete this visitor?"
+                                            class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="p-12 text-center text-gray-400">
+                                <div class="flex flex-col items-center justify-center">
+                                    <ion-icon name="people-outline" class="text-4xl mb-2 opacity-50"></ion-icon>
+                                    <p class="text-lg font-medium text-gray-500">No visitors found</p>
+                                    <p class="text-sm">Try adjusting your search or register a new visitor.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50/50">
+                {{ $visitors->links() }}
+            </div>
+        </div>
+    </div>
 </div>

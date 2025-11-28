@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('call_duration')->nullable();
             $table->enum('call_type',['inbound','outbound']);
             $table->enum('call_status',['completed','missed','voicemail']);
-            $table->string('employee');
+            $table->foreignId('employee_id')->constrained()->onDelete('cascade');
             $table->string('notes')->nullable();
             $table->softDeletes();
             
